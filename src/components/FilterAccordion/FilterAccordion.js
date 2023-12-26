@@ -7,12 +7,11 @@ import {
   Box,
   Checkbox,
   Flex,
-  Input,
 } from "@chakra-ui/react";
 import "./FilterAccordion.scss";
 import { usePriceFilter } from "../../Contexts/PriceFilterContext";
 export default function FilterAccordion({ title, filter }) {
-  const { priceFilter, updatePriceFilter, clearPriceFilter } = usePriceFilter();
+  const { priceFilter, updatePriceFilter } = usePriceFilter();
 
   return (
     <Accordion defaultIndex={[0]} allowMultiple my={"10px"}>

@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 import "./SearchResultsItem.scss";
 export default function SearchResultsItem({ product }) {
   return (

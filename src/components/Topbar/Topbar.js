@@ -4,13 +4,12 @@ import {
   Image,
   Input,
   InputGroup,
-  InputRightAddon,
   InputRightElement,
 } from "@chakra-ui/react";
 import { Search } from "lucide-react";
 import logo from "../../images/logo.svg";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 export default function Topbar() {
   return (

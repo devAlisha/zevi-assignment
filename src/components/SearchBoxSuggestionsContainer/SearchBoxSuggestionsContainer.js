@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Skeleton, Text } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 import trend1 from "../../images/latestTrends1.svg";
 import trend2 from "../../images/latestTrends2.svg";
 import trend3 from "../../images/latestTrends3.svg";
