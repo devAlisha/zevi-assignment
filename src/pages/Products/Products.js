@@ -3,6 +3,10 @@ import Topbar from "../../components/Topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { faker } from "@faker-js/faker";
+import {
+  usePriceFilter,
+} from "../../Contexts/PriceFilterContext";
+import { useEffect, useState } from "react";
 
 const generateFakeProducts = (count) => {
   const products = [];
@@ -15,7 +19,7 @@ const generateFakeProducts = (count) => {
         height: 325,
       }),
       title: faker.commerce.productName(),
-      price: faker.commerce.price(),
+      price: faker.commerce.price({ min: 100, max: 1000 }),
       rating: faker.number.int({ min: 10, max: 100 }),
     };
     products.push(product);
@@ -24,7 +28,23 @@ const generateFakeProducts = (count) => {
 };
 
 export default function Products() {
-  const products = generateFakeProducts(10);
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    const products = generateFakeProducts(10);
+    setProducts(products);
+  }, []);
+  const { priceFilter } = usePriceFilter();
+
+  const filteredProducts = products.filter((product) => {
+    if (priceFilter.lessThan500 && product.price >= 500) {
+      return false;
+    }
+    if (priceFilter.moreThan500 && product.price < 500) {
+      return false;
+    }
+    return true;
+  });
+
   return (
     <Box
       className="products-page-container"
@@ -39,7 +59,7 @@ export default function Products() {
       <Flex alignItems={"end"} flexDirection={"column"}>
         <Box w={"80%"} mt={"40px"}>
           <Flex gap={"40px"} flexWrap={"wrap"}>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <ProductCard product={product} key={product.id} />
             ))}
           </Flex>

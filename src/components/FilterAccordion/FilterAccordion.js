@@ -10,7 +10,10 @@ import {
   Input,
 } from "@chakra-ui/react";
 import "./FilterAccordion.scss";
+import { usePriceFilter } from "../../Contexts/PriceFilterContext";
 export default function FilterAccordion({ title, filter }) {
+  const { priceFilter, updatePriceFilter, clearPriceFilter } = usePriceFilter();
+
   return (
     <Accordion defaultIndex={[0]} allowMultiple my={"10px"}>
       <AccordionItem
@@ -32,11 +35,30 @@ export default function FilterAccordion({ title, filter }) {
         </AccordionButton>
         <AccordionPanel p={1} rowGap={5}>
           <Flex flexDirection={"column"} gap={"10px"} justifyContent={"center"}>
-            {filter.map((item, index) => (
-              <Checkbox spacing={3} key={index}>
-                {item.name}
-              </Checkbox>
-            ))}
+            {title === "Price" ? (
+              <Flex flexDirection={"column"} gap={"10px"}>
+                <Checkbox
+                  spacing={3}
+                  isChecked={priceFilter.lessThan500}
+                  onChange={() => updatePriceFilter("lessThan500")}
+                >
+                  Under 500
+                </Checkbox>
+                <Checkbox
+                  spacing={3}
+                  isChecked={priceFilter.moreThan500}
+                  onChange={() => updatePriceFilter("moreThan500")}
+                >
+                  500 - 1000
+                </Checkbox>
+              </Flex>
+            ) : (
+              filter.map((item, index) => (
+                <Checkbox spacing={3} key={index}>
+                  {item.name}
+                </Checkbox>
+              ))
+            )}
           </Flex>
         </AccordionPanel>
       </AccordionItem>
