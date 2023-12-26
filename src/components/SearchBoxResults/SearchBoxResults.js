@@ -5,13 +5,12 @@ import SearchResultsItem from "../SearchResultsItem/SearchResultsItem";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { ArrowRightFromLine } from "lucide-react";
-import './SearchBoxResults.scss'
+import "./SearchBoxResults.scss";
 export default function SearchBoxResults({ textInput }) {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    // Generate fake products
     const generateFakeProducts = (count) => {
       const products = [];
       for (let i = 0; i < count; i++) {
@@ -26,24 +25,21 @@ export default function SearchBoxResults({ textInput }) {
       return products;
     };
 
-    // Simulate an API call or any asynchronous operation
     const fetchProducts = () => {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(generateFakeProducts(10));
-        }, 1500); // Simulating a delay of 1.5 seconds
+        }, 1500);
       });
     };
 
     setLoading(true);
-    // Fetch products and update state
     fetchProducts().then((result) => {
       setProducts(result);
       setLoading(false);
     });
   }, [textInput]);
 
-  // Filter products based on textInput
   const filterProducts = (query) => {
     return products.filter(
       (product) =>
@@ -52,7 +48,6 @@ export default function SearchBoxResults({ textInput }) {
     );
   };
 
-  // Filtered products based on textInput
   const filteredProducts = filterProducts(textInput);
 
   return (
@@ -73,12 +68,21 @@ export default function SearchBoxResults({ textInput }) {
             <Box textAlign="center">No results found</Box>
           )}
 
-            <ChakraLink mt={4} as={ReactRouterLink} to="/home" display={"flex"} gap={2} justifyContent={'end'} alignItems={'center'} className="view-all-items-link-container">
-              <span>View all items</span>
-              <span>
-                <ArrowRightFromLine className="arrow-right-icon" size={16} />
-              </span>
-            </ChakraLink>
+          <ChakraLink
+            mt={4}
+            to="/products"
+            as={ReactRouterLink}
+            display={"flex"}
+            gap={2}
+            justifyContent={"end"}
+            alignItems={"center"}
+            className="view-all-items-link-container"
+          >
+            <span>View all items</span>
+            <span>
+              <ArrowRightFromLine className="arrow-right-icon" size={16} />
+            </span>
+          </ChakraLink>
         </Box>
       )}
     </div>
