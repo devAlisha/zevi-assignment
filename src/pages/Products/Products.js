@@ -3,9 +3,7 @@ import Topbar from "../../components/Topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { faker } from "@faker-js/faker";
-import {
-  usePriceFilter,
-} from "../../Contexts/PriceFilterContext";
+import { usePriceFilter } from "../../Contexts/PriceFilterContext";
 import { useEffect, useState } from "react";
 
 const generateFakeProducts = (count) => {
@@ -57,8 +55,18 @@ export default function Products() {
       <Topbar />
       <Sidebar />
       <Flex alignItems={"end"} flexDirection={"column"}>
-        <Box w={"80%"} mt={"40px"}>
-          <Flex gap={"40px"} flexWrap={"wrap"}>
+        <Box
+          w={{
+            base: "100%",
+            lg: "80%",
+          }}
+          mt={"40px"}
+        >
+          <Flex
+            gap={"40px"}
+            flexWrap={"wrap"}
+            justifyContent={{ base: "center", lg: "flex-start" }}
+          >
             {filteredProducts.map((product) => (
               <ProductCard product={product} key={product.id} />
             ))}
