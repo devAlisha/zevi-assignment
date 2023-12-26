@@ -49,10 +49,10 @@ export default function ProductCard({ product }) {
         </Text>
         <Flex fontSize={"20px"} className="product-card-price" gap={2}>
           <Text textDecoration={"line-through"}>
-            {product.price}
+            {`${product.price - 20}.00`}
           </Text>
           <Text color={"#6D84FF"} fontWeight={"bold"}>
-            {product.price}
+            {`Rs.${product.price}`}
           </Text>
         </Flex>
         <Flex flexDirection={"row"} gap={"12px"} alignItems={"center"}>
