@@ -4,10 +4,20 @@ import { faker } from "@faker-js/faker";
 import Rating from "../Ratings/Rating";
 import { Heart } from "lucide-react";
 import { useState } from "react";
+import ProductDetailsModal from "../ProductDetailsModal/ProductDetailsModal";
 
 export default function ProductCard({ product }) {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -37,7 +47,7 @@ export default function ProductCard({ product }) {
           className={`product-card-image ${isLoading && "hidden"}`}
           onLoad={handleImageLoad}
         />
-        <Box className="product-card-image-overlay">
+        <Box className="product-card-image-overlay" onClick={openModal}>
           <Text fontSize={"12px"} className="product-card-image-overlay-text">
             View Details
           </Text>
@@ -64,6 +74,11 @@ export default function ProductCard({ product }) {
           </Text>
         </Flex>
       </Flex>
+      <ProductDetailsModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        product={product}
+      />
     </Flex>
   );
 }
