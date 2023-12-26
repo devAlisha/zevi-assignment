@@ -59,7 +59,7 @@ export default function Sidebar() {
         xl: "2.5rem",
       }}
     >
-      <Heading as="h2" size="lg" className="sidebar-heading" mt={"40px"}>
+      <Heading as="h2" className="sidebar-heading" mt={"40px"} fontSize='1.75rem'>
         Search Results
       </Heading>
       <Box mt={10}>
