@@ -4,7 +4,7 @@ import "./Input.scss";
 import { InputTextContext } from "../../Contexts/InputTextContext";
 import { useContext } from "react";
 
-export default function Input({ onFocus,onBlur }) {
+export default function Input({ onFocus }) {
   const { updateTextInput } = useContext(InputTextContext);
   const handleInputChange = (e) => {
     const newText = e.target.value;
@@ -16,7 +16,6 @@ export default function Input({ onFocus,onBlur }) {
         type="text"
         placeholder="Search..."
         className="input"
-        onBlur={onBlur}
         onFocus={onFocus}
         onChange={handleInputChange}
       />
