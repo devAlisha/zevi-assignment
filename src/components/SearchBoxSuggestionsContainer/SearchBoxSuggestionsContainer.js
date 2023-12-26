@@ -1,12 +1,18 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Image, Skeleton, Text } from "@chakra-ui/react";
 
 import trend1 from "../../images/latestTrends1.svg";
 import trend2 from "../../images/latestTrends2.svg";
 import trend3 from "../../images/latestTrends3.svg";
 import trend4 from "../../images/latestTrends4.svg";
 import trend5 from "../../images/latestTrends5.svg";
-import './SearchBoxSuggestionsContainer.scss';
+import "./SearchBoxSuggestionsContainer.scss";
+import { useState } from "react";
 export default function SearchBoxSuggestionsContainer() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
   const trends = [
     { image: trend1, alt: "Latest Trend 1", text: "Shirt with puff sleeves" },
     { image: trend2, alt: "Latest Trend 2", text: "Linen jumpsuit" },
@@ -40,10 +46,12 @@ export default function SearchBoxSuggestionsContainer() {
             key={index}
             className="search-box-suggestions-container__latest-trend"
           >
+            {isLoading && <Skeleton height={"223px"} width={"165px"} />}
             <Image
               src={trend.image}
               alt={trend.alt}
               className="search-box-suggestions-container__latest-trend-image"
+              onLoad={handleImageLoad}
             />
             <Text fontSize={"14px"} mt={"14px"} className="latest-trend-text">
               {trend.text}
