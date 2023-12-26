@@ -9,6 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { Search } from "lucide-react";
 import logo from "../../images/logo.svg";
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
+
 export default function Topbar() {
   return (
     <Flex
@@ -30,7 +33,9 @@ export default function Topbar() {
         </InputRightElement>
       </InputGroup>
       <Flex flex={1} justifyContent={"flex-end"}>
-        <Image src={logo} alt="logo" w={"auto"} h={"auto"} />
+        <ChakraLink as={ReactRouterLink} to="/">
+          <Image src={logo} alt="logo" w={"auto"} h={"auto"} />
+        </ChakraLink>
       </Flex>
     </Flex>
   );

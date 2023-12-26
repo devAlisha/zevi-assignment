@@ -41,9 +41,6 @@ export default function Home() {
   return (
     <InputTextContextProvider>
       <Box className="home-container">
-        {
-          console.log(searchBoxContainerRef)
-        }
         <Image src={bg} alt="Background Image" className="bg-image" />
         <Box
           p={{
