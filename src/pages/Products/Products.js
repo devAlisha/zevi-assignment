@@ -12,6 +12,7 @@ const generateFakeProducts = (count) => {
     const product = {
       id: i,
       image: faker.image.urlLoremFlickr({
+        category: "people",
         width: 239,
         height: 325,
       }),
