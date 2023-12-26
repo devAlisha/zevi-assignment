@@ -73,14 +73,12 @@ export default function SearchBoxResults({ textInput }) {
             <Box textAlign="center">No results found</Box>
           )}
 
-          <Box mt={2} className="view-all-items-link-container">
-            <ChakraLink as={ReactRouterLink} to="/home" display={"flex"} gap={2} justifyContent={'end'} alignItems={'center'}>
+            <ChakraLink mt={4} as={ReactRouterLink} to="/home" display={"flex"} gap={2} justifyContent={'end'} alignItems={'center'} className="view-all-items-link-container">
               <span>View all items</span>
               <span>
                 <ArrowRightFromLine className="arrow-right-icon" size={16} />
               </span>
             </ChakraLink>
-          </Box>
         </Box>
       )}
     </div>
