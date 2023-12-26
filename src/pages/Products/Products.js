@@ -1,5 +1,6 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Topbar from "../../components/Topbar/Topbar";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 export default function Products() {
   return (
@@ -12,6 +13,14 @@ export default function Products() {
       }}
     >
       <Topbar />
+      <Sidebar />
+      <Flex alignItems={"end"} flexDirection={"column"}>
+        <Box w={"80%"} bg={"red"} mt={"40px"}>
+          <Flex justifyContent={"space-between"} gap={"20px"}>
+            
+          </Flex>
+        </Box>
+      </Flex>
     </Box>
   );
 }

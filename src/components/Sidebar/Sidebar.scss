@@ -1,0 +1,17 @@
+.sidebar-container {
+  width: 20%;
+  height: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.accordion-button {
+  outline: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .sidebar-container {
+    display: none;
+  }
+}
