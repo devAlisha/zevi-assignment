@@ -52,6 +52,9 @@
     }
   }
   &:hover {
+    .product-card-image{
+      filter: brightness(0.5);
+    }
     .product-card-image-overlay {
       opacity: 1;
     }
