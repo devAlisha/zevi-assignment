@@ -1,5 +1,6 @@
 import { Box, Flex, Image, Skeleton, Text } from "@chakra-ui/react";
-
+import { Link as ReactRouterLink } from "react-router-dom";
+import { Link as ChakraLink, LinkProps } from "@chakra-ui/react";
 import trend1 from "../../images/latestTrends1.svg";
 import trend2 from "../../images/latestTrends2.svg";
 import trend3 from "../../images/latestTrends3.svg";
@@ -47,15 +48,18 @@ export default function SearchBoxSuggestionsContainer() {
             className="search-box-suggestions-container__latest-trend"
           >
             {isLoading && <Skeleton height={"223px"} width={"165px"} />}
-            <Image
-              src={trend.image}
-              alt={trend.alt}
-              className="search-box-suggestions-container__latest-trend-image"
-              onLoad={handleImageLoad}
-            />
-            <Text fontSize={"14px"} mt={"14px"} className="latest-trend-text">
-              {trend.text}
-            </Text>
+
+            <ChakraLink as={ReactRouterLink} to="/products">
+              <Image
+                src={trend.image}
+                alt={trend.alt}
+                className="search-box-suggestions-container__latest-trend-image"
+                onLoad={handleImageLoad}
+              />
+              <Text fontSize={"14px"} mt={"14px"} className="latest-trend-text">
+                {trend.text}
+              </Text>
+            </ChakraLink>
           </Box>
         ))}
       </Flex>
@@ -64,13 +68,14 @@ export default function SearchBoxSuggestionsContainer() {
       </h2>
       <Flex mt={"24px"} rowGap={"12px"} flexDirection={"column"}>
         {popularSuggestions.map((suggestion, index) => (
-          <Text
-            key={index}
-            fontSize={"16px"}
-            className="search-box-suggestions-container__popular-suggestion-text"
-          >
-            {suggestion}
-          </Text>
+          <ChakraLink as={ReactRouterLink} to="/products" key={index}>
+            <Text
+              fontSize={"16px"}
+              className="search-box-suggestions-container__popular-suggestion-text"
+            >
+              {suggestion}
+            </Text>
+          </ChakraLink>
         ))}
       </Flex>
     </div>
