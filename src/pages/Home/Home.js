@@ -9,6 +9,7 @@ import SearchBoxResultContainer from "../../components/SearchBoxResultContainer/
 import { InputTextContextProvider } from "../../Contexts/InputTextContext";
 
 export default function Home() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const searchBoxContainerRef = useRef(null);
   useEffect(() => {
@@ -29,11 +30,20 @@ export default function Home() {
   }, []);
 
   const handleInputFocus = () => {
+    setIsSearchOpen(true);
     setShowResults(true);
   };
+
+  const handleInputBlur = () => {
+    setIsSearchOpen(false);
+  };
+
   return (
     <InputTextContextProvider>
       <Box className="home-container">
+        {
+          console.log(searchBoxContainerRef)
+        }
         <Image src={bg} alt="Background Image" className="bg-image" />
         <Box
           p={{
@@ -69,11 +79,9 @@ export default function Home() {
               }}
               pb={0}
             >
-              <Input onFocus={handleInputFocus} />
+              <Input onFocus={handleInputFocus} onBlur={handleInputBlur} />
             </Box>
-            {showResults && (
-              <SearchBoxResultContainer ref={searchBoxContainerRef} />
-            )}
+            {showResults && <SearchBoxResultContainer ref={searchBoxContainerRef} />}
           </Container>
         </Box>
       </Box>
