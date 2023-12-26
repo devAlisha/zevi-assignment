@@ -1,0 +1,12 @@
+.search-results-item {
+  //on hover
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 20px;
+  &:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+    color: blue;
+  }
+}

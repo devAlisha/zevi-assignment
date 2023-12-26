@@ -9,15 +9,7 @@
     opacity: 0.75;
     object-fit: cover;
   }
-  .search-input{
-    background-color: #fff;
-    height: 83px;
-    border-radius: 20px;
-    padding: 0 10px;
-    &:focus{
-      outline: none;
-    }
-    align-items: center;
-
+  .main-container {
+    padding-bottom: 0;
   }
 }

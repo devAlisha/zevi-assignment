@@ -1,0 +1,38 @@
+.search-box-suggestions-container {
+
+  &__heading {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  &__latest-trend {
+    &:hover {
+      cursor: pointer;
+      img {
+        filter: brightness(0.75);
+      }
+      .latest-trend-text {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__popular-suggestion-text {
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
