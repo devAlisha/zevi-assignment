@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Topbar from "../../components/Topbar/Topbar";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -124,9 +124,21 @@ const Products = () => {
             flexWrap={"wrap"}
             justifyContent={{ base: "center", lg: "flex-start" }}
           >
-            {filteredProducts.map((product) => (
-              <ProductCard product={product} key={product.id} />
-            ))}
+            {filteredProducts.length === 0 ? (
+              <Box mt={"40px"} fontSize={"24px"} textAlign={"center"} bg={"gray.100"} color={"gray.500"} p={"20px"} borderRadius={"10px"} w={"100%"}>
+                Sorry! No products found
+              </Box>
+            ) : (
+              <Flex
+                gap={"40px"}
+                flexWrap={"wrap"}
+                justifyContent={{ base: "center", lg: "flex-start" }}
+              >
+                {filteredProducts.map((product) => (
+                  <ProductCard product={product} key={product.id} />
+                ))}
+              </Flex>
+            )}
           </Flex>
         </Box>
       </Flex>
