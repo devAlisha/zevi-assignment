@@ -4,9 +4,10 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { faker } from "@faker-js/faker";
 import { usePriceFilter } from "../../Contexts/PriceFilterContext";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useBrandFilter } from "../../Contexts/BrandFilterContext";
 import { useRatingFilter } from "../../Contexts/RatingFilterContext";
+import debounce from "lodash/debounce";
 
 const brandNames = ["Mango", "H&M", "Zara"];
 
@@ -30,18 +31,10 @@ const generateFakeProducts = (count) => {
   return products;
 };
 
-export default function Products() {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    const products = generateFakeProducts(20);
-    setProducts(products);
-  }, []);
+const filterProducts = (products, filters) => {
+  return products.filter((product) => {
+    const { priceFilter, selectedBrands, minRating } = filters;
 
-  const { priceFilter } = usePriceFilter();
-  const { selectedBrands } = useBrandFilter();
-  const { minRating } = useRatingFilter();
-
-  const filteredProducts = products.filter((product) => {
     if (priceFilter.lessThan500 && product.price >= 500) {
       return false;
     }
@@ -59,6 +52,53 @@ export default function Products() {
 
     return true;
   });
+};
+
+const Products = () => {
+  const [products, setProducts] = useState([]);
+  const { priceFilter } = usePriceFilter();
+  const { selectedBrands } = useBrandFilter();
+  const { minRating } = useRatingFilter();
+
+  const filteredProducts = useMemo(
+    () => filterProducts(products, { priceFilter, selectedBrands, minRating }),
+    [products, priceFilter, selectedBrands, minRating]
+  );
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const fakeProducts = generateFakeProducts(20);
+      setProducts(fakeProducts);
+    };
+
+    fetchProducts();
+  }, []);
+
+  const debouncedFilterProducts = useMemo(
+    () => debounce(filterProducts, 300),
+    []
+  );
+
+  const handleFilterChange = useCallback(() => {
+    debouncedFilterProducts(products, {
+      priceFilter,
+      selectedBrands,
+      minRating,
+    });
+  }, [
+    products,
+    priceFilter,
+    selectedBrands,
+    minRating,
+    debouncedFilterProducts,
+  ]);
+
+  useEffect(() => {
+    handleFilterChange();
+    return () => {
+      debouncedFilterProducts.cancel();
+    };
+  }, [handleFilterChange, debouncedFilterProducts]);
 
   return (
     <Box
@@ -92,4 +132,6 @@ export default function Products() {
       </Flex>
     </Box>
   );
-}
+};
+
+export default Products;

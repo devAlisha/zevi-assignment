@@ -65,22 +65,25 @@ export default function ProductCard({ product }) {
         </Flex>
         <Flex fontSize={"18px"} className="product-card-price" gap={2}>
           <Text textDecoration={"line-through"}>
-            {`${parseFloat(product.price) + 
-              Math.floor(Math.random() * 100)
+            {`${
+              parseFloat(product.price) + Math.floor(Math.random() * 100)
             }.00`}
           </Text>
           <Text color={"#6D84FF"} fontWeight={"bold"}>
             {`Rs.${product.price}`}
           </Text>
         </Flex>
-        <Flex flexDirection={"column"} gap={"12px"} mt={"auto"}>
-          <Flex gap={1} color={"#FFD700"}>
+        <Flex flexDirection={"column"} gap={"12px"} mt={"auto"} fontSize={"14px"}>
+          <Flex gap={1} color={"#FFD700"} alignItems={"center"}>
             {[...Array(filledStars)].map((_, index) => (
-              <Star key={index} fill="#FFD700" />
+              <Star key={index} fill="#FFD700" size={16} />
             ))}
             {[...Array(5 - filledStars)].map((_, index) => (
-              <Star key={index} />
+              <Star key={index} size={16} />
             ))}
+            <Text color={"black"}>{`(${
+              Math.floor(Math.random() * 100) + 10
+            })`}</Text>
           </Flex>
         </Flex>
       </Flex>
