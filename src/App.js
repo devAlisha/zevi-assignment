@@ -4,6 +4,8 @@ import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 import { PriceFilterProvider } from "./Contexts/PriceFilterContext";
 import { useEffect } from "react";
+import { BrandFilterProvider } from "./Contexts/BrandFilterContext";
+import { RatingFilterProvider } from "./Contexts/RatingFilterContext";
 
 function App() {
   useEffect(() => {
@@ -11,12 +13,16 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <PriceFilterProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-        </Routes>
-      </PriceFilterProvider>
+      <RatingFilterProvider>
+        <BrandFilterProvider>
+          <PriceFilterProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<Products />} />
+            </Routes>
+          </PriceFilterProvider>
+        </BrandFilterProvider>
+      </RatingFilterProvider>
     </div>
   );
 }

@@ -10,8 +10,21 @@ import {
 } from "@chakra-ui/react";
 import "./FilterAccordion.scss";
 import { usePriceFilter } from "../../Contexts/PriceFilterContext";
+import { useBrandFilter } from "../../Contexts/BrandFilterContext";
+import { useRatingFilter } from "../../Contexts/RatingFilterContext";
+
 export default function FilterAccordion({ title, filter }) {
   const { priceFilter, updatePriceFilter } = usePriceFilter();
+  const { selectedBrands, toggleBrandSelection } = useBrandFilter();
+  const { minRating, updateMinRating } = useRatingFilter();
+
+  const handleRatingCheckboxChange = (value) => {
+    if (minRating === value) {
+      updateMinRating(0);
+    } else {
+      updateMinRating(value);
+    }
+  };
 
   return (
     <Accordion defaultIndex={[0]} allowMultiple my={"10px"}>
@@ -34,7 +47,7 @@ export default function FilterAccordion({ title, filter }) {
         </AccordionButton>
         <AccordionPanel p={1} rowGap={5}>
           <Flex flexDirection={"column"} gap={"10px"} justifyContent={"center"}>
-            {title === "Price" ? (
+            {title === "Price" && (
               <Flex flexDirection={"column"} gap={"10px"}>
                 <Checkbox
                   spacing={3}
@@ -51,12 +64,51 @@ export default function FilterAccordion({ title, filter }) {
                   500 - 1000
                 </Checkbox>
               </Flex>
-            ) : (
-              filter.map((item, index) => (
-                <Checkbox spacing={3} key={index}>
-                  {item.name}
+            )}
+            {title === "Brand" &&
+              filter.map((brand) => (
+                <Checkbox
+                  spacing={3}
+                  isChecked={selectedBrands.includes(brand.name)}
+                  onChange={() => toggleBrandSelection(brand.name)}
+                  key={brand.id}
+                >
+                  {brand.name}
                 </Checkbox>
-              ))
+              ))}
+            {title === "Rating" && (
+              <>
+                <Flex flexDirection={"column"} gap={"10px"}>
+                  <Checkbox
+                    spacing={3}
+                    isChecked={minRating >= 4}
+                    onChange={() => handleRatingCheckboxChange(4)}
+                  >
+                    4.0 & Above
+                  </Checkbox>
+                  <Checkbox
+                    spacing={3}
+                    isChecked={minRating >= 3 && minRating < 4}
+                    onChange={() => handleRatingCheckboxChange(3)}
+                  >
+                    3.0 & Above
+                  </Checkbox>
+                  <Checkbox
+                    spacing={3}
+                    isChecked={minRating >= 2 && minRating < 3}
+                    onChange={() => handleRatingCheckboxChange(2)}
+                  >
+                    2.0 & Above
+                  </Checkbox>
+                  <Checkbox
+                    spacing={3}
+                    isChecked={minRating >= 1 && minRating < 2}
+                    onChange={() => handleRatingCheckboxChange(1)}
+                  >
+                    1.0 & Above
+                  </Checkbox>
+                </Flex>
+              </>
             )}
           </Flex>
         </AccordionPanel>

@@ -5,6 +5,10 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import { faker } from "@faker-js/faker";
 import { usePriceFilter } from "../../Contexts/PriceFilterContext";
 import { useEffect, useState } from "react";
+import { useBrandFilter } from "../../Contexts/BrandFilterContext";
+import { useRatingFilter } from "../../Contexts/RatingFilterContext";
+
+const brandNames = ["Mango", "H&M", "Zara"];
 
 const generateFakeProducts = (count) => {
   const products = [];
@@ -16,9 +20,10 @@ const generateFakeProducts = (count) => {
         width: 239,
         height: 325,
       }),
+      brand: brandNames[Math.floor(Math.random() * brandNames.length)],
       title: faker.commerce.productName(),
       price: faker.commerce.price({ min: 100, max: 1000 }),
-      rating: faker.number.int({ min: 10, max: 100 }),
+      rating: faker.number.float({ min: 1, max: 5, precision: 0.1 }),
     };
     products.push(product);
   }
@@ -28,10 +33,13 @@ const generateFakeProducts = (count) => {
 export default function Products() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    const products = generateFakeProducts(10);
+    const products = generateFakeProducts(20);
     setProducts(products);
   }, []);
+
   const { priceFilter } = usePriceFilter();
+  const { selectedBrands } = useBrandFilter();
+  const { minRating } = useRatingFilter();
 
   const filteredProducts = products.filter((product) => {
     if (priceFilter.lessThan500 && product.price >= 500) {
@@ -40,6 +48,15 @@ export default function Products() {
     if (priceFilter.moreThan500 && product.price < 500) {
       return false;
     }
+
+    if (selectedBrands.length > 0 && !selectedBrands.includes(product.brand)) {
+      return false;
+    }
+
+    if (minRating > 0 && product.rating < minRating) {
+      return false;
+    }
+
     return true;
   });
 

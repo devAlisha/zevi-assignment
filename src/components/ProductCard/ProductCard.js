@@ -1,8 +1,6 @@
 import { Box, Flex, Image, Text, Skeleton } from "@chakra-ui/react";
 import "./ProductCard.scss";
-import { faker } from "@faker-js/faker";
-import Rating from "../Ratings/Rating";
-import { Heart } from "lucide-react";
+import { Heart, Star } from "lucide-react";
 import { useState } from "react";
 import ProductDetailsModal from "../ProductDetailsModal/ProductDetailsModal";
 
@@ -23,6 +21,8 @@ export default function ProductCard({ product }) {
     setIsLoading(false);
   };
 
+  const filledStars = Math.floor(Number(product.rating));
+
   return (
     <Flex
       flexDirection={"column"}
@@ -38,7 +38,7 @@ export default function ProductCard({ product }) {
       <Box
         position={"relative"}
         className="product-card-image-container"
-        mb={"24px"}
+        mb={"12px"}
       >
         {isLoading && <Skeleton height={"325px"} width={"239px"} />}
         <Image
@@ -54,26 +54,37 @@ export default function ProductCard({ product }) {
         </Box>
       </Box>
       <Flex flexDirection={"column"} gap={"12px"}>
-        <Text fontSize={"20px"} className="product-card-name">
-          {product.title}
-        </Text>
-        <Flex fontSize={"20px"} className="product-card-price" gap={2}>
+        <Flex
+          fontSize={"18px"}
+          className="product-card-name"
+          gap={2}
+          flexDirection={"column"}
+        >
+          <Text fontWeight={"bold"}>{product.brand}</Text>
+          <Text>{product.title}</Text>
+        </Flex>
+        <Flex fontSize={"18px"} className="product-card-price" gap={2}>
           <Text textDecoration={"line-through"}>
-            {`${product.price - 20}.00`}
+            {`${parseFloat(product.price) + 
+              Math.floor(Math.random() * 100)
+            }.00`}
           </Text>
           <Text color={"#6D84FF"} fontWeight={"bold"}>
             {`Rs.${product.price}`}
           </Text>
         </Flex>
-        <Flex flexDirection={"row"} gap={"12px"} alignItems={"center"}>
-          <Box flex={1}>
-            <Rating id={product.id} />
-          </Box>
-          <Text fontSize={"12px"} className="product-card-reviews" flex={1}>
-            ({faker.number.int({ min: 10, max: 100 })})
-          </Text>
+        <Flex flexDirection={"column"} gap={"12px"} mt={"auto"}>
+          <Flex gap={1} color={"#FFD700"}>
+            {[...Array(filledStars)].map((_, index) => (
+              <Star key={index} fill="#FFD700" />
+            ))}
+            {[...Array(5 - filledStars)].map((_, index) => (
+              <Star key={index} />
+            ))}
+          </Flex>
         </Flex>
       </Flex>
+
       <ProductDetailsModal
         isOpen={isModalOpen}
         onClose={closeModal}
